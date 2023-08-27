@@ -15,7 +15,11 @@ const signin = () => {
             dbRef.child("users").child(user.uid).get().then((snapshot) => {
                 if (snapshot.exists()) {
                     const userData = snapshot.val()
-                    const user = { email: email, username: userData.username};
+                    const user = { email: email,
+                         username: userData.username,
+                         password: password,
+                         userID : userData.uid
+                        };
                     localStorage.setItem('user', JSON.stringify(user));
                     console.log('User created successfully.')
                     window.location.href = '../Dashboard/dashboard.html'

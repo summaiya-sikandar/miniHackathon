@@ -45,7 +45,6 @@ body {
 }
 .pageBody{
     background-color: whitesmoke;
-    height: 400px;
 }
 .pageHeading{
     padding-top: 2%;
@@ -61,7 +60,7 @@ body {
     background-color: white;
     margin-left: 10% ;
     padding: 2%;
-    border: 1px solid black;
+    border: 1px solid blueviolet;
     border-radius: 2%;
 }
 
@@ -89,11 +88,10 @@ body {
 
 .publishBlog{
     width: 65%;
-    
     background-color: white;
     margin-left: 10% ;
     padding: 2%;
-    border: 1px solid black;
+    border: 1px solid blueviolet;
     border-radius: 2%;
 
 }

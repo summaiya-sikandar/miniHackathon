@@ -26,15 +26,15 @@ const  newBlog={
    blogTitle: document.getElementById("blogTitle").value,
    blogContent: document.getElementById("blogContent").value,
    date: date,
-   email:email
+   email:email,
+   username: userData.username
 
 }
     var blogs= firebase.database().ref('blogs');
-
+    console.log(newBlog)
     var newBlogRef = blogs.push(newBlog);
     newBlogRef.push(newBlog).then(function () {
         console.log('Blog uploaded successfully');
-        // localStorage.setItem('blogs', JSON.stringify(newBlog));
         document.getElementById("blogTitle").value= ""
         document.getElementById("blogContent").value= ""
         displayBlogs()
@@ -45,9 +45,7 @@ const  newBlog={
     });
 }
 
-
 const displayBlogs = () => {
-
     
 const userData = JSON.parse(localStorage.getItem("user"));
 let markup = " "
@@ -56,18 +54,17 @@ let markup = " "
         snapshot.forEach((childSnapshot) => {
           var childKey = childSnapshot.key;
           var childData = childSnapshot.val();
-
+           console.log(childData)
           if( userData.email== childData.email){
-            markup += `<div class="blog" id="blog">
-            <h3 id="blogTitle"${childData.blogTitle}</h3>
-            <span id="username"  class="sameLine">Summaiya Sikandar -</span>
+            markup += `
+            <div class="blog" id="blog">
+            <h3 id="blogTitle">${childData.blogTitle}</h3>
+            <span id="username"  class="sameLine" >${userData.username} -</span>
             <span id="date" class="sameLine">${childData.date}</span>
-            <p id="blogContent">${childData.blogContent}</p>
+            <p id="blogContent" style="  font-size: 18px;">${childData.blogContent}</p>
             <button class="blogButton" id="deleteBlog" blogID="${childKey}" onclick="deleteBlog(event)">Delete</button>
         </div>
-    
        `
-  
           }
         
      })
@@ -76,8 +73,6 @@ document.getElementById("allBlogs").innerHTML= markup;
 });
 
 }
-
-
 displayBlogs();
 
 function deleteBlog(event) {
@@ -96,20 +91,3 @@ function deleteBlog(event) {
     });
 }
 
-function isAuthenticated() {
-    const user = localStorage.getItem('user');
-    return user !== null;
-}
-
-if (!isAuthenticated()) {
-    window.location.href = '../Login/login.html' ;
-}
-
-
-function logout(){
-    console.log("Loging out")
-    localStorage.removeItem('user');
-    window.location.href = '../Login/login.html' ;
-    console.log("Logged out")
-
-}
